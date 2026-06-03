@@ -49,7 +49,7 @@ const projectsData = {
     },
     1: {
         title: "DIY Hitbox (Fighting Game Controller)",
-        fullDescription: "A DIY hitbox system for fighting games, built with Raspberry Pi Pico and custom electronics.",
+        fullDescription: "A DIY hitbox system for fighting games, built with Raspberry Pi Pico and custom electronics. (This is a personal project.)",
         challenge: "Traditional hitbox systems are very expensive. ",
         solution: "I created an affordable alternative using a Raspberry Pi Pico, The system features responsive buttons and can be easily customized for different games.",
         image: "https://placehold.co/600x400/1a4d3a/white?text=DIY+Hitbox",

@@ -157,17 +157,53 @@ nav {
 
 .avatar-placeholder {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 0.95;
     max-width: 320px;
     margin: 0 auto;
-    background: linear-gradient(145deg, #dadce0, #ffffff);
+    background: linear-gradient(145deg, #acc4f5, #ffffff);
     border-radius: 48px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;  /* Aligns image at the bottom of the box */
     justify-content: center;
-    font-size: 5rem;
-    font-weight: 500;
-    color: #2c3e66;
+    overflow: visible;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.avatar-placeholder:hover {
+    transform: scale(1.05);  /* Box gets slightly bigger */
+    background: linear-gradient(145deg, #a7c0f1, #ffffff);
+}
+
+.avatar-img {
+    width: 120%;
+    height: auto;
+    max-height: 130%;
+    object-fit: cover;
+    object-position: center 0%; 
+    border-radius: 48px;
+    position: relative;
+    top: -25px;  /* Moves the top of the image outside the box */
+    margin-bottom: -25px;  /* Pulls the bottom back in */
+    filter: drop-shadow(0 8px 20px rgba(2, 2, 2, 0.35));
+    transition: all 0.35s ease;
+}
+
+.avatar-placeholder:hover .avatar-img {
+    transform: scale(1.04);
+    filter: drop-shadow(0 20px 25px rgba(92, 48, 250, 0.35));
+}
+
+.avatar-placeholder::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 10%;
+    width: 80%;
+    height: 30px;
+    background: radial-gradient(ellipse at center, rgba(0,102,204,0.2), transparent);
+    filter: blur(8px);
+    z-index: -1;
 }
 
 section {
@@ -371,4 +407,308 @@ footer {
     .section-title {
         font-size: 1.8rem;
     }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 0;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 28px;
+    position: relative;
+    animation: slideIn 0.4s ease;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    right: 24px;
+    top: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.close-modal:hover {
+    color: #0066cc;
+    transform: scale(1.1);
+}
+
+/* Modal content styling */
+.modal-project-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 28px 28px 0 0;
+}
+
+.modal-project-info {
+    padding: 32px;
+}
+
+.modal-project-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+.modal-project-desc {
+    color: #4a4a4a;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.modal-project-details {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+}
+
+.modal-project-details h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.modal-project-details p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.modal-tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-tech-tag {
+    background: #f0f2f5;
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.modal-live-link {
+    display: inline-block;
+    margin-top: 24px;
+    background: #171717;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.modal-live-link:hover {
+    background: #0066cc;
+    transform: translateY(-2px);
+}
+
+/* Gallery images inside modal */
+.modal-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.modal-gallery-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.modal-gallery-img:hover {
+    transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .modal-project-title {
+        font-size: 1.5rem;
+    }
+    
+    .modal-project-img {
+        height: 200px;
+    }
+}
+
+.education-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.education-card {
+    display: flex;
+    gap: 24px;
+    padding: 28px;
+    background: white;
+    border-radius: 24px;
+    border: 1px solid #efefef;
+    transition: all 0.3s ease;
+    align-items: flex-start;
+}
+
+.education-card:hover {
+    transform: translateX(8px);
+    border-color: #e0e0e0;
+    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.1);
+}
+
+/* School Logo Styles */
+.edu-logo {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.edu-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Hover effect for logo */
+.education-card:hover .edu-logo {
+    transform: scale(1.05);
+    background: #f0f2f5;
+}
+
+.edu-details {
+    flex: 1;
+}
+
+.edu-details h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #171717;
+}
+
+.edu-institution {
+    color: #0066cc;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.edu-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 12px;
+}
+
+.date-icon {
+    font-size: 0.9rem;
+}
+
+.edu-desc {
+    color: #5a5a5a;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+/* If you don't have logos yet, use initials placeholder */
+.edu-logo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0066cc, #3a3a5e);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .education-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .edu-date {
+        justify-content: center;
+    }
+    
+    .edu-logo {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 8px;
+    }
+}
+
+.contact-name {
+    font-size: 1.5rem;     /* Makes it bigger */
+    font-weight: 700;      /* Makes it bold (700 = bold) */
+    color: #171717;        /* Optional: darker color */
+    margin-bottom: 8px;    /* Space below name */
 }
